@@ -208,7 +208,7 @@ for z in range(input_times): # input_times = Anzahl der Durchläufe
     n.daempf_anpassung()
     print(n.hidden_inputs.round(1))
     print("hs NEU= \n{}".format(n.hs))
-    print("hs_alt= \n{}".format(n.hs_alt))
+    print("hs_alt yyyyyyy= \n{}".format(n.hs_alt))
     #print("hs neu= ")
     #print(n.hs.round(1))    
     #print("hs_alt neu= ")
