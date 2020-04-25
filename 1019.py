@@ -79,7 +79,7 @@ class dynNN:
     # search dynNN
     def search(self, inputs_list):
         inputs = inputs_list
-        print("SUCHE...............")
+        print("..........SUCHE...............")
         # calculate signals into hidden layer
         hidden_inputs = numpy.dot(self.wih, inputs)
         print(self.wih, inputs)
@@ -87,10 +87,9 @@ class dynNN:
 
     # Vektor hi berechnen
     def vektor_hi(self, inputs_list):
-        print("cccc vektor_hi cccc")
+        print("ccccccccc vektor_hi ccccccccc")
         inputs = inputs_list
         self.hidden_inputs = numpy.dot(self.wih, inputs) + numpy.dot(self.dhh, self.D_sprung)
-        #self.hidden_inputs = numpy.dot(self.dhh, self.hs)
         print("xxxxxclass numpy.dot(self.wih, inputs)= \n{}".format(numpy.dot(self.wih, inputs).round(3)))
         print("xxxxxclass numpy.dot(self.dhh, self.D_sprung)= \n{}".format(numpy.dot(self.dhh, self.D_sprung).round(3)))
         print("xxxxxclass hidden_inputs= \n{}".format(self.hidden_inputs.round(3)))
@@ -100,7 +99,7 @@ class dynNN:
     
     # Sprungantwort hs Vektor berechnen
     def sprung_antwort(self):
-        print("cccc sprung_antwort cccc")
+        print("ccccccccc sprung_antwort ccccccccc")
         #print("hs vorher= \n{}".format(self.hs))
         for i in range(self.hnodes):
             self.hs_alt[i] = self.hs[i]             # vorher den alten "hs" als "hi_alt" abspeichern
@@ -112,15 +111,15 @@ class dynNN:
             else:
                 self.D_sprung[i] = 0
             #print("Sprung D_akt nachher= ", self.D_akt[i])
-            print("self.hidden_inputs[i]xxx= ", self.hidden_inputs[i], i)
+            #print("self.hidden_inputs[i]xxx= ", self.hidden_inputs[i], i)
             if self.hidden_inputs[i] > self.swert:
                 self.hs[i] = 1
             else:
                 self.hs[i] = 0
 
-        print("D_akt= ", self.D_akt)
-        print("D_sprung= ", self.D_sprung)
-        print("D_start= ", self.D_start)
+        #print("D_akt= ", self.D_akt)
+        #print("D_sprung= ", self.D_sprung)
+        #print("D_start= ", self.D_start)
         #print("hs alt= \n{}".format(self.hs_alt))
         #print("hs NEU= \n{}".format(self.hs))
         #print("self.hidden_inputs[i]xxx= ", self.hidden_inputs[i], i)
@@ -135,9 +134,9 @@ class dynNN:
     # Dämpfungswerte dhh anpassen. 
     # Dämpfungsmatrix erzeugen wenn Zeitwert z=0 dann dämpfen
     def daempf_anpassung(self):
-        print("cccc daempfung_anpassung cccc")
+        print("ccccccccc daempfung_anpassung ccccccccc")
         #print("hs vorher= \n{}".format(self.hs))
-        print("dhh vorher= \n{}".format(self.dhh.round(2)))        
+        #print("dhh vorher= \n{}".format(self.dhh.round(2)))        
         for i in range(hidden_nodes):
             for k in range(hidden_nodes):
                 if self.hs_alt[i] != self.hs[i]:
@@ -151,7 +150,7 @@ class dynNN:
                     pass
                 
         #print("hs nachher= \n{}".format(self.hs))
-        print("dhh nachher= \n{}".format(self.dhh.round(2)))
+        #print("dhh nachher= \n{}".format(self.dhh.round(2)))
         return self.hs
         pass
 
@@ -187,8 +186,8 @@ for t in range(input_times):
         else:
             Input[i,t] = 0
             #print("i=" "ist ungerade")
-print("Input= ")
-print(Input)   
+print("Input= \n{}".format(Input))
+#print(Input)   
 print()
 
 # Vektor: hi_alt Vektor aufstellen (merken für den Vergleich mit aktuellem hi)
@@ -212,7 +211,7 @@ for z in range(input_times): # input_times = Anzahl der Durchläufe
      
     # 1. Schritt Vektor hi berechnen: hi = wih @ INPUT_akt-Vektor + dhh @ D_sprung
     n.vektor_hi(INPUT_akt)
-    print("hidden_inputs 2x = \n{}".format(n.hidden_inputs.round(3)))
+    print("hidden_inputs nachher = \n{}".format(n.hidden_inputs.round(3)))
 
     # 2. Schritt Sprungantwort der hidden Neuronen hs (s=Sprung) entspr. dem Stufenwer (stufen_wert) berechnen
     n.sprung_antwort()
