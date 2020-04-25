@@ -11,7 +11,7 @@ except ImportError:
     import Tkinter as tk                        
 from random import randint
 import numpy
-#import scipy.special
+import scipy.special
 import matplotlib.pyplot
 #import math
 #import time
