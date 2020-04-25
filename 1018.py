@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 #----------------------------------------------------------------
-# Mein Dynamisches Neuronales Netz in github
+# Mein Dynamisches Neuronales Netz in github2
 # Dateiname: Mein_DNN_1018.py
 # R.J.Nickerl mit github
 # 05.04.20 Python 3.8
@@ -85,7 +85,8 @@ class dynNN:
     def vektor_hi(self, inputs_list):
         print("cccc vektor_hi cccc")
         inputs = inputs_list
-        self.hidden_inputs = numpy.dot(self.wih, inputs)
+        self.hidden_inputs = numpy.dot(self.wih, inputs) + numpy.dot(self.dhh, self.hs)
+        #self.hidden_inputs = numpy.dot(self.dhh, self.hs)
         print("xxxxxclass hidden_inputs= \n{}".format(self.hidden_inputs.round(3)))
         return self.hidden_inputs
         pass
@@ -96,16 +97,16 @@ class dynNN:
         #print("hs vorher= \n{}".format(self.hs))
         for i in range(self.hnodes):
             self.hs_alt[i] = self.hs[i]             # vorher den alten "hs" als "hi_alt" abspeichern
-            #print("Spriúng D_akt vorher = ", self.D_akt[i])
-            #D_akt[i] = D_akt[i] -1
-            #print("Spriúng D_akt nachher= ", D_akt[i])
-            #print("self.hidden_inputs[i]xxx= ", self.hidden_inputs[i], i)
+            #print("Sprung self.D_akt vorher = ", self.D_akt[i])
+            self.D_akt[i] = self.D_akt[i] -1
+            #print("Sprung D_akt nachher= ", self.D_akt[i])
+            print("self.hidden_inputs[i]xxx= ", self.hidden_inputs[i], i)
             if self.hidden_inputs[i] > self.swert:
                 self.hs[i] = 1
             else:
                 self.hs[i] = 0
-        print("hs alt= \n{}".format(self.hs_alt))
-        print("hs NEU= \n{}".format(self.hs))
+        #print("hs alt= \n{}".format(self.hs_alt))
+        #print("hs NEU= \n{}".format(self.hs))
         #print("self.hidden_inputs[i]xxx= ", self.hidden_inputs[i], i)
         return self.hidden_inputs
         return self.hidden_inputs
@@ -207,9 +208,8 @@ for z in range(input_times): # input_times = Anzahl der Durchläufe
     #            der Dämpfungswert = 0 ist, dann Hi berechnen: Hi = dhh @ ektor hi berechnen: hi = wih @ Inp-Vektor
     n.daempf_anpassung()
     print(n.hidden_inputs.round(1))
-    print("hs NEU= \n{}".format(n.hs))
-    print("hs_alt yyyyyyy= \n{}".format(n.hs_alt))
-    #print("hs neu= ")
+    print("hs_altxxx= \n{}".format(n.hs_alt))
+    print("hs NEUxxx= \n{}".format(n.hs))    #print("hs neu= ")
     #print(n.hs.round(1))    
     #print("hs_alt neu= ")
     #print(n.hs_alt.round(1))
