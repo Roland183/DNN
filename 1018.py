@@ -46,12 +46,16 @@ class dynNN:
         # Vector: D[i] Dämpfungsnode werden random erstbesetzt
         # D[1]
         # D[2] etc.
-        self.D_start = numpy.random.randint(self.mverz, size=(self.dnodes))
+        self.D_start = numpy.random.randint(self.mverz+1, size=(self.dnodes))
         self.D_akt = numpy.zeros( [self.dnodes] )
+        self.D_sprung = numpy.zeros( [self.dnodes] )
         for i in range(self.dnodes):
             self.D_akt[i] = self.D_start[i]
+            self.D_sprung[i] = 0
         print("D_start= ", self.D_start)
         print("D_akt= ", self.D_akt)
+        print("D_sprung= ", self.D_sprung)
+
 
         
         # acivation function is the sigmoid function Änderung: hier wird die Stufenfunktion verwendet
@@ -85,7 +89,7 @@ class dynNN:
     def vektor_hi(self, inputs_list):
         print("cccc vektor_hi cccc")
         inputs = inputs_list
-        self.hidden_inputs = numpy.dot(self.wih, inputs) + numpy.dot(self.dhh, self.hs)
+        self.hidden_inputs = numpy.dot(self.wih, inputs) + numpy.dot(self.dhh, self.D_sprung)
         #self.hidden_inputs = numpy.dot(self.dhh, self.hs)
         print("xxxxxclass hidden_inputs= \n{}".format(self.hidden_inputs.round(3)))
         return self.hidden_inputs
@@ -99,12 +103,21 @@ class dynNN:
             self.hs_alt[i] = self.hs[i]             # vorher den alten "hs" als "hi_alt" abspeichern
             #print("Sprung self.D_akt vorher = ", self.D_akt[i])
             self.D_akt[i] = self.D_akt[i] -1
+            if self.D_akt[i] < 0:
+                self.D_sprung[i] = 1
+                self.D_akt[i] = self.D_start[i] 
+            else:
+                self.D_sprung[i] = 0
             #print("Sprung D_akt nachher= ", self.D_akt[i])
             print("self.hidden_inputs[i]xxx= ", self.hidden_inputs[i], i)
             if self.hidden_inputs[i] > self.swert:
                 self.hs[i] = 1
             else:
                 self.hs[i] = 0
+
+        print("D_akt= ", self.D_akt)
+        print("D_sprung= ", self.D_sprung)
+        print("D_start= ", self.D_start)
         #print("hs alt= \n{}".format(self.hs_alt))
         #print("hs NEU= \n{}".format(self.hs))
         #print("self.hidden_inputs[i]xxx= ", self.hidden_inputs[i], i)
