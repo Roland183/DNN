@@ -235,35 +235,41 @@ n.os = numpy.zeros( [output_nodes] )
 ######HAUPTPROGRAMM SCHLEIFE 1#################
 ###############################################
 
+# Schritt 2: Schleife über alle Lernzyklen
 for z in range(input_times): # input_times = Anzahl der Durchläufe
     print("------------------------------------------------")
     print("Zeitpunkt= ", z)
-    # 0. Schritt Input zum Zeitpunkt z auslesen
+    # Schritt 3: Schleife über alle Buchstaben (Hier zunächst nur ein 0,0,0,0,0,0, oder 1,1,1,1,1,1 Muster
     for i in range(input_nodes):
         INPUT_akt[i] = Input[i,z]
     print("INPUT_akt= \n{}".format(INPUT_akt))
      
-    # 1. Schritt Vektor hi berechnen: hi = wih @ INPUT_akt-Vektor + dhh @ D_sprung
+    # Schritt 4: Schleife über alle Areale (Hier zunächst nur ein Areal)
+
+    # Schritt 5: Schleife über eine komplette Alpha-Welle (= Stufenwert modulieren)
+
+    # Schritt 6: Vektor hi berechnen: hi = wih @ INPUT_akt-Vektor + dhh @ D_sprung
     n.vektor_hi(INPUT_akt)
     print("hidden_inputs nachher = \n{}".format(n.hidden_inputs.round(3)))
 
-    # 2. Schritt Sprungantwort der hidden Neuronen hs (s=Sprung) entspr. dem Stufenwer (stufen_wert) berechnen
+    # Schritt 7: Sprungantwort der hidden Neuronen hs (s=Sprung) entspr. dem Stufenwer (stufen_wert) berechnen
     n.sprung_antwort_hs()
 
-    # 3. Schritt Dämpfungsvektor Di werden entsprechend der aktuellen Sprungantwort geändert
-    #            wenn hs = hi pro Zeitpunkt z um eins verkleinert, bis
-    #            der Dämpfungswert = 0 ist, dann Hi berechnen: Hi = dhh @ ektor hi berechnen: hi = wih @ Inp-Vektor
-    n.daempf_anpassung()
-    print(n.hidden_inputs.round(1))
-    print("hs_altxxx= \n{}".format(n.hs_alt))
-    print("hs NEUxxx= \n{}".format(n.hs))    
-    #print(n.hs.round(1))    
-    #print("hs_alt neu= ")
-    #print(n.hs_alt.round(1))
-            
+    # Schritt 8: dynamische Anpassung der Dämpfungsgewichte di
+    # wenn ein Neuron immer 0,1,0,1,0,1,... (=Chaos) zeigt, damm Dämpfungen di von diesem Neuron aus erhöhen
+    # wenn ein Neuron immer 0,0,0,0,0,0,... (=Tot) zeigt, damm Dämpfungen di von diesem Neuron aus verkleinern.
+    
+    # Schritt 9: Sprungantwort der Output Neuronen o1 - on entspr. dem Stufenwert berechnen
 
-    # 4. Schritt Sprungantwort der Output-Neuronen entspr. dem Stufenwer (stufen_wert) berechnen
-    n.sprung_antwort_os()
+    # Schritt 10: dynamische Anpassung der Dämpfungsgewichte do
+    
+    # Schritt 11: Alpha Modellierung des Stufenwertes
+
+    # Schritt 12: Synchronisation pro Buchstabe über alle Areale berechnen und wenn:
+    # a) Synchron.Ergebnis DNNneu besser als DNN alt dann DNNneu behalten sonst
+    # b) DNNalt behalten und die Gewichte der Verknüpfungen hi und oi per Zufall und die Dämpfungen di und do neu setzen (Gaußsche Normalvert.).
+
+    
 
 
 
