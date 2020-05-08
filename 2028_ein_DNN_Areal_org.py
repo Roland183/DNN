@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 #----------------------------------------------------------------
 # Mein Dynamisches Neuronales Netz in github2
-# Dateiname: Mein_DNN_2027.py
+# Dateiname: 2028_ein_DNN_Areal_org.py
 # R.J.Nickerl mit github
 # 05.04.20 Python 3.8
 #--------------------------------------------------------------
